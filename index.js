@@ -11,27 +11,59 @@ const questions = [
     type: "input",
     name: "name",
     message: "What is the team manager's name?",
+    validate: (nameInput) => {
+      if (nameInput) {
+        return true;
+      } else {
+        console.log("Please enter the team manager's name!");
+        return false;
+      }
+    },
   },
   {
     type: "input",
     name: "ID",
     message: "What is the team manager's id?",
+    validate: (idInput) => {
+      if (idInput) {
+        return true;
+      } else {
+        console.log("Please enter the team manager's id");
+        return false;
+      }
+    },
   },
   {
     type: "input",
     name: "email",
     message: "What is the team manager's email?",
+    validate: (emailInput) => {
+      if (emailInput) {
+        return true;
+      } else {
+        console.log("Please enter the team manager's email");
+        return false;
+      }
+    },
   },
   {
     type: "input",
     name: "officeNumber",
     message: "What is the team manager's office number?",
+    validate: (officeNumInput) => {
+      if (officeNumInput) {
+        return true;
+      } else {
+        console.log("Please enter the team manager's office number");
+        return false;
+      }
+    },
   },
   {
     type: "list",
     name: "addTeamMember",
     message: "Which type of team member would you like to add?",
-    choices: [{ name: "Engineer" }, { name: "Intern" }, { name: "I don't want to add any more team members" }],
+    choices: ["Engineer", "Intern", "I don't want to add any more team members"],
   },
 ];
 
@@ -39,7 +71,7 @@ const questions = [
 
 function writeToFile(fileName, data) {
   return new Promise((resolve, reject) => {
-    fs.writeFile("./" + fileName, data, (err) => {
+    fs.writeFile("./dist/" + fileName, data, (err) => {
       if (err) {
         reject(err);
         return;
@@ -54,10 +86,13 @@ function writeToFile(fileName, data) {
 
 // A function to initialize app
 function init() {
-  inquirer.prompt(questions).then((answers) => {
-    console.log(answers);
-    writeToFile("team.html", Employee(answers));
-  });
+  inquirer
+    .prompt(questions)
+    .then((answers) => {
+      console.log(answers);
+      writeToFile("team.html", Employee(answers));
+    })
+    .catch((err) => console.log(err));
 }
 
 // Function call to initialize app

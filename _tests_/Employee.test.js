@@ -1,5 +1,5 @@
 const Employee = require("../lib/Employee");
 
-describe(" creates a manager profile", () => {
-  const employee = new Employee("Dave");
+test(" adds 1 + 2 to equal 3", () => {
+  expect(Employee(1, 2)).toBe(3);
 });

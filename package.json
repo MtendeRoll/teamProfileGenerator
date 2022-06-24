@@ -17,9 +17,7 @@
   },
   "homepage": "https://github.com/MtendeRoll/teamProfileGenerator#readme",
   "dependencies": {
-    "inquirer": "^9.0.0"
-  },
-  "devDependencies": {
+    "inquirer": "^6.5.2",
     "jest": "^28.1.1"
   }
 }
