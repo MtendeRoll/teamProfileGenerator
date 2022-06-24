@@ -34,3 +34,31 @@ const questions = [
     choices: [{ name: "Engineer" }, { name: "Intern" }, { name: "I don't want to add any more team members" }],
   },
 ];
+
+// A function to write team file
+
+function writeToFile(fileName, data) {
+  return new Promise((resolve, reject) => {
+    fs.writeFile("./" + fileName, data, (err) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve({
+        ok: true,
+        message: "File created!",
+      });
+    });
+  });
+}
+
+// A function to initialize app
+function init() {
+  inquirer.prompt(questions).then((answers) => {
+    console.log(answers);
+    writeToFile("team.html", Employee(answers));
+  });
+}
+
+// Function call to initialize app
+init();
