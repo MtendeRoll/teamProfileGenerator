@@ -4,7 +4,7 @@
   "description": "Node.js command-line application that takes in information about employees on a software engineering team and generates an HTML webpage that displays summaries for each person",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "test"
   },
   "repository": {
     "type": "git",
@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/MtendeRoll/teamProfileGenerator#readme",
   "dependencies": {
-    "inquirer": "^9.0.0",
+    "inquirer": "^9.0.0"
+  },
+  "devDependencies": {
     "jest": "^28.1.1"
   }
 }
