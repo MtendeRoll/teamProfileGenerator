@@ -1,5 +1,5 @@
 const Employee = require("../lib/Employee");
 
-test(" statement", () => {
-  //expect function
+describe(" creates a manager profile", () => {
+  const employee = new Employee("Dave");
 });
