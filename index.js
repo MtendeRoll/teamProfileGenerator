@@ -4,6 +4,7 @@ const fs = require("fs");
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
+const renderHTML = require("./src/renderTemplate");
 
 //Add validation when puting input
 
@@ -24,7 +25,7 @@ const managerQuestions = [
   },
   {
     type: "input",
-    name: "ID",
+    name: "id",
     message: "What is the team manager's id?",
     validate: (idInput) => {
       if (idInput) {
@@ -60,12 +61,6 @@ const managerQuestions = [
         return false;
       }
     },
-  },
-  {
-    type: "list",
-    name: "addTeamMember",
-    message: "Which type of team member would you like to add?",
-    choices: ["Engineer", "Intern", "I don't want to add any more team members"],
   },
 ];
 
@@ -179,33 +174,72 @@ const internQuestions = [
   },
 ];
 
-// A function to write team file
+function teamMembers() {
+  this.team = [];
+  this.manager;
+  this.engineer;
+  this.intern;
+}
 
-function writeToFile(fileName, data) {
+teamMembers.prototype.promptManager = function () {
+  inquirer.prompt(managerQuestions).then(({ name, id, email, office }) => {
+    this.manager = new Manager(name, id, email, office);
+    this.team.push(this.manager);
+    this.promptTeamMember();
+  });
+};
+
+teamMembers.prototype.promptTeamMember = function () {
+  inquirer
+    .prompt({
+      type: "list",
+      name: "member",
+      message: "Which type of team member would you like to add?",
+      choices: ["Engineer", "Intern", "I don't want to add any more team members"],
+    })
+    .then(({ member }) => {
+      if (member === "Engineer") {
+        this.promptEngineer();
+      } else if (member === "Intern") {
+        this.promptIntern();
+      } else {
+        createFile(renderHTML(this.team));
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+teamMembers.prototype.promptEngineer = function () {
+  inquirer.prompt(engineerQuestions).then(({ name, id, email, github }) => {
+    this.engineer = new Engineer(name, id, email, github);
+    this.team.push(this.engineer);
+    this.promptTeamMember();
+  });
+};
+
+teamMembers.prototype.promptIntern = function () {
+  inquirer.prompt(internQuestions).then(({ name, id, email, school }) => {
+    this.intern = new Intern(name, id, email, school);
+    this.team.push(new Intern(name, id, email, school));
+    this.promptTeamMember();
+  });
+};
+
+const createFile = (mainHTML) => {
   return new Promise((resolve, reject) => {
-    fs.writeFile("./dist/" + fileName, data, (err) => {
+    fs.writeFile("./dist/team.html", mainHTML, (err) => {
       if (err) {
         reject(err);
         return;
       }
       resolve({
         ok: true,
-        message: "File created!",
+        message: "teamFile created!",
       });
     });
   });
-}
+};
 
-// A function to initialize app
-function init() {
-  inquirer
-    .prompt(questions)
-    .then((answers) => {
-      console.log(answers);
-      writeToFile("team.html", Employee(answers));
-    })
-    .catch((err) => console.log(err));
-}
-
-// Function call to initialize app
-init();
+new teamMembers().promptManager();
