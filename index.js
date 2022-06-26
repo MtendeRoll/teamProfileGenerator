@@ -182,8 +182,8 @@ function teamMembers() {
 }
 
 teamMembers.prototype.promptManager = function () {
-  inquirer.prompt(managerQuestions).then(({ name, id, email, office }) => {
-    this.manager = new Manager(name, id, email, office);
+  inquirer.prompt(managerQuestions).then(({ name, id, email, officeNumber }) => {
+    this.manager = new Manager(name, id, email, officeNumber);
     this.team.push(this.manager);
     this.promptTeamMember();
   });
