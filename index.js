@@ -204,6 +204,7 @@ teamMembers.prototype.promptTeamMember = function () {
         this.promptIntern();
       } else {
         createFile(renderHTML(this.team));
+        console.log("team file has been created");
       }
     })
     .catch((err) => {
@@ -241,5 +242,7 @@ const createFile = (mainHTML) => {
     });
   });
 };
+
+console.log("Please enter your team manager's information first followed by any additional employees that you may have");
 
 new teamMembers().promptManager();

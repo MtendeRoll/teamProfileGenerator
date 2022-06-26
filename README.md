@@ -6,9 +6,18 @@ This application makes it possible for a manager to generate a webpage that disp
 
 ## Table of Contents
 
+- Installation
 - Tests
 - Links
 - Walkthrough Video
+
+## Installation
+
+run this in your command line
+
+```
+npm install
+```
 
 ## Tests
 
@@ -16,8 +25,8 @@ This application is using Jest to run the tests
 
 ## Links
 
-![Github Repo]()
-![Live Page]()
+- [Github Repo](https://github.com/MtendeRoll/teamProfileGenerator)
+- [Live Page]()
 
 ## Walkthrough Video
 
