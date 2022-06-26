@@ -35,6 +35,8 @@ Generated HTML
 
 ![HTML Output](./assets/images/teamHTML-output.jpg)
 
+![Sample HTML](./assets/gifs/sampleHTML.gif)
+
 Question Prompts Example
 
 ![Question Prompts](./assets/images/nodePrompts.jpg)
